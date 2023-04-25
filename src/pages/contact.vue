@@ -83,7 +83,7 @@ const submitForm = () => {
 
         <div class="col-span-2">
           <h2 class="mt-6 mb-2 text-primary text-2xl">Location</h2>
-          <div class="mt-4 mb-3">
+          <div class="mb-3">
             <base-input v-model="formData.location" id="location" title="location" />
 
           </div>
