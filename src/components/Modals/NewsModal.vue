@@ -1,25 +1,37 @@
 <script lang="ts" setup>
 import useVuelidate from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
+import type {PublicFormData} from "../../types"
+
 const props = defineProps({
     show:{
         type:Boolean,
         default:false
+    },
+    newsInfo:{
+        type:Object as PropType<PublicFormData>,
+            default:null
     }
+
+    
 })
 const emit = defineEmits(['submitInfo','closeModal'])
+const {newsInfo} = toRefs(props)
+watch( newsInfo , (val:PublicFormData)=>{
+    console.log(val)
+    formData.header = val.header || ''
+    formData.content = val.content || ''
+    formData.img = val.img || null
+    formData.date = val.date || ''
+})
 const closeModal = ()=>{
-    v$.value.$reset()
-    formData.header=''
-    formData.content=''
-    formData.date=''
-    formData.image = null
-    emit('closeModal')
+        v$.value.$reset()
+        emit('closeModal')
 }
 const formData = reactive({
     header:'',
     content:'',
-    image:null,
+    img:null,
     date:''
 })
 const rules = {
@@ -29,7 +41,7 @@ const rules = {
     content:{
         required
     },
-    image :{
+    img :{
         required
     },
     date :{
@@ -66,6 +78,7 @@ const submitData = ()=>{
             </div>
             <div>
                 <div class="flex flex-col">
+                    {{ formData.date }}
                     <label class="text-base mb-1" for="date"></label>
                     <input type="date" class="border ps-2 py-2 rounded-md" name="date" id="date" v-model="formData.date">
                 </div> 
@@ -74,8 +87,8 @@ const submitData = ()=>{
                 </div>
             </div>
             <div>
-                <img-input v-model="formData.image" :link="null" />
-                <div class="input-errors" v-for="error of v$.image.$errors" :key="error.$uid">
+                <img-input v-model="formData.img" :link="null" />
+                <div class="input-errors" v-for="error of v$.img.$errors" :key="error.$uid">
                         <div class="error-msg">{{ error.$message }}</div>
                 </div>
             </div>

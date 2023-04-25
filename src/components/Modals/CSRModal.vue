@@ -8,12 +8,18 @@ const props = defineProps({
         type:Boolean,
         default:false
     },
-    projectsInfo:{
-        type:Object as PropType<PublicFormData | undefined>,
+    csrInfo:{
+        type:Object as PropType<PublicFormData>,
         default:{}
     }
 })
 const emit = defineEmits(['submitInfo','closeModal'])
+const {csrInfo} = toRefs(props)
+watch( csrInfo , (val:PublicFormData)=>{
+    formData.header = val.header || ''
+    formData.content = val.content || ''
+    formData.img = val.img
+})
 const closeModal = ()=>{
         v$.value.$reset()
         emit('closeModal')
@@ -34,12 +40,6 @@ const rules = {
         required
     },
 }
-const {projectsInfo} = toRefs(props)
-watch( projectsInfo , (val:PublicFormData)=>{
-    formData.header = val.header || ''
-    formData.content = val.content || ''
-    formData.img = val.img 
-})
 const v$ = useVuelidate(rules , formData)
 const processing = ref(false)
 const submitData = ()=>{
@@ -53,7 +53,7 @@ const submitData = ()=>{
 </script>
 
 <template>
-    <modal :open="show" title="Create Project" @close="closeModal">
+    <modal :open="show" title="Create CSR" @close="closeModal">
       <form @submit.prevent="submitData" class="px-4 edit-form">
         <div class="flex flex-col gap-3">
             <div>
@@ -71,10 +71,9 @@ const submitData = ()=>{
             <div>
                 <img-input v-model="formData.img" :link="null" />
                 <div class="input-errors" v-for="error of v$.img.$errors" :key="error.$uid">
-                        <div class="error-msg">{{ error.$message }}</div>
+                    <div class="error-msg">{{ error.$message }}</div>
                 </div>
             </div>
-            
             <base-button type="submit" class="mt-4 text-center hover:bg-primary-600 duration-300 transition-all" >Create</base-button>
         </div>
     </form>

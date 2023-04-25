@@ -1,25 +1,34 @@
 <script lang="ts" setup>
 import useVuelidate from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
+import type {PublicFormData} from "../../types"
+
 const props = defineProps({
     show:{
         type:Boolean,
         default:false
+    },
+    servicesInfo:{
+        type:Object as PropType<PublicFormData>,
+        default:{}
     }
 })
 const emit = defineEmits(['submitInfo','closeModal'])
-const closeModal = ()=>{
-    v$.value.$reset()
-    formData.header=''
-    formData.content=''
-    formData.image = null
-    emit('closeModal')
-}
-const formData = reactive({
+const {servicesInfo} = toRefs(props)
+const formData = ref({
     header:'',
     content:'',
-    image:null
+    img:null
 })
+watch( servicesInfo , (val:PublicFormData)=>{
+    formData.value.header = val?.header || ''
+    formData.value.content = val?.content || ''
+    formData.value.img = val?.img || null
+})
+const closeModal = ()=>{
+        v$.value.$reset()
+        emit('closeModal')
+}
 const rules = {
     header:{
         required
@@ -27,7 +36,7 @@ const rules = {
     content:{
         required
     },
-    image :{
+    img :{
         required
     },
 }
@@ -60,9 +69,9 @@ const submitData = ()=>{
                 </div>
             </div>
             <div>
-                <img-input v-model="formData.image" :link="null" />
-                <div class="input-errors" v-for="error of v$.image.$errors" :key="error.$uid">
-                        <div class="error-msg">{{ error.$message }}</div>
+                <img-input v-model="formData.img" :link="null" />
+                <div class="input-errors" v-for="error of v$.img.$errors" :key="error.$uid">
+                    <div class="error-msg">{{ error.$message }}</div>
                 </div>
             </div>
             

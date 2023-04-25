@@ -1,20 +1,30 @@
 <script lang="ts" setup>
 import useVuelidate from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
+import type {team} from "../../types"
+
 const props = defineProps({
     show:{
         type:Boolean,
         default:false
+    },
+    showTeams:{
+        type:Object as PropType<team>,
+        default:{}
     }
 })
 const emit = defineEmits(['submitInfo','closeModal'])
+const {showTeams} = toRefs(props)
 const closeModal = ()=>{
-    v$.value.$reset()
-    formData.name=''
-    formData.content=''
-    formData.image = null
-    emit('closeModal')
+        v$.value.$reset()
+        emit('closeModal')
 }
+watch( showTeams , (val:team)=>{
+    console.log(val)
+    formData.name = val.name
+    formData.content = val.content
+    formData.img = val.img
+})
 const formData = reactive({
     name:'',
     content:'',

@@ -11,6 +11,12 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     BaseButton: typeof import('./components/Form/BaseButton.vue')['default']
     BaseInput: typeof import('./components/Form/BaseInput.vue')['default']
+    BasicGrid: typeof import('./components/Grid/basicGrid.vue')['default']
+    BasinGrid: typeof import('./components/Grid/basinGrid.vue')['default']
+    CSRModal: typeof import('./components/Modals/CSRModal.vue')['default']
+    Grid: typeof import('./components/Grid/Grid.vue')['default']
+    GridTd: typeof import('./components/Grid/GridTd.vue')['default']
+    GridTh: typeof import('./components/Grid/GridTh.vue')['default']
     ImgInput: typeof import('./components/Form/ImgInput.vue')['default']
     Loader: typeof import('./components/App/Loader.vue')['default']
     Modal: typeof import('./components/App/Modal.vue')['default']

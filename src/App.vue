@@ -22,17 +22,20 @@ import {
   HomeIcon,
   UsersIcon,
   XMarkIcon,
+  PhoneIcon,
+  ArrowTrendingDownIcon,
+  GlobeAltIcon
 } from '@heroicons/vue/24/outline'
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
 
 const navigation = [
   { name: 'Dashboard', href: '/', icon: HomeIcon, current: true },
-  { name: 'Services', href: '/services', icon: FolderIcon, current: false },
+  { name: 'Services', href: '/services', icon: ArrowTrendingDownIcon, current: false },
   { name: 'Projects', href: '/projects', icon: FolderIcon, current: false },
   { name: 'News', href: '/news', icon: CalendarIcon, current: false },
-  { name: 'Teams', href: '/teams', icon: FolderIcon, current: false },
-  { name: 'CSR', href: '/csr', icon: FolderIcon, current: false },
-  { name: 'Contact', href: '/contact', icon: FolderIcon, current: false },
+  { name: 'Teams', href: '/teams', icon: UsersIcon, current: false },
+  { name: 'CSR', href: '/csr', icon: GlobeAltIcon, current: false },
+  { name: 'Contact', href: '/contact', icon: PhoneIcon, current: false },
 ]
 const userNavigation = [
   { name: 'Your profile', href: '#' },
@@ -70,18 +73,12 @@ const sidebarOpen = ref(false)
                     <li>
                       <ul role="list" class="-mx-2 space-y-1">
                         <li v-for="item in navigation" :key="item.name">
-                          <router-link :to="`${item.href}`" :class="[item.current ? 'bg-primary-100 text-white' : 'text-indigo-200 hover:text-white hover:bg-primary-100', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']">
-                            <component :is="item.icon" :class="[item.current ? 'text-white' : 'text-indigo-200 group-hover:text-white', 'h-6 w-6 shrink-0']" aria-hidden="true" />
+                          <router-link :to="`${item.href}`" class="group link flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                            <component :is="item.icon" class="h-6 w-6 shrink-0" aria-hidden="true" />
                             {{ item.name }}
                           </router-link>
                         </li>
                       </ul>
-                    </li>
-                    <li class="mt-auto">
-                      <a href="#" class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-indigo-200 hover:bg-indigo-700 hover:text-white">
-                        <Cog6ToothIcon class="h-6 w-6 shrink-0 text-indigo-200 group-hover:text-white" aria-hidden="true" />
-                        Settings
-                      </a>
                     </li>
                   </ul>
                 </nav>
@@ -97,25 +94,19 @@ const sidebarOpen = ref(false)
       <!-- Sidebar component, swap this element with another sidebar if you like -->
       <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-primary px-6 pb-4">
         <div class="flex h-16 shrink-0 items-center">
-          <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=white" alt="Your Company" />
+          <img class="mt-6 w-16 h-16 logo" src="logo.jfif" alt="Your Company" />
         </div>
-        <nav class="flex flex-1 flex-col">
+        <nav class="flex flex-1 flex-col my-6">
           <ul role="list" class="flex flex-1 flex-col gap-y-7">
             <li>
-              <ul role="list" class="-mx-2 space-y-1">
+              <ul role="list" class="-mx-2 space-y-3">
                 <li v-for="item in navigation" :key="item.name">
-                  <router-link :to="`${item.href}`" :class="[item.current ? 'bg-primary-50 text-white' : 'text-indigo-200 hover:text-white hover:bg-primary-100', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']">
-                    <component :is="item.icon" :class="[item.current ? 'text-white' : 'text-indigo-200 group-hover:text-white', 'h-6 w-6 shrink-0']" aria-hidden="true" />
+                  <router-link :to="`${item.href}`" class="group link flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                    <component :is="item.icon" class="h-6 w-6 shrink-0" aria-hidden="true" />
                     {{ item.name }}
                   </router-link>
                 </li>
               </ul>
-            </li>
-            <li class="mt-auto">
-              <a href="#" class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-indigo-200 hover:bg-indigo-700 hover:text-white">
-                <Cog6ToothIcon class="h-6 w-6 shrink-0 text-indigo-200 group-hover:text-white" aria-hidden="true" />
-                Settings
-              </a>
             </li>
           </ul>
         </nav>
@@ -132,12 +123,7 @@ const sidebarOpen = ref(false)
         <!-- Separator -->
         <div class="h-6 w-px bg-gray-900/10 lg:hidden" aria-hidden="true" />
 
-        <div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
-          <form class="relative flex flex-1" action="#" method="GET">
-            <label for="search-field" class="sr-only">Search</label>
-            <MagnifyingGlassIcon class="pointer-events-none absolute inset-y-0 left-0 h-full w-5 text-gray-400" aria-hidden="true" />
-            <input id="search-field" class="block h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm" placeholder="Search..." type="search" name="search" />
-          </form>
+        <div class="flex flex-1 gap-x-4 self-stretch justify-end lg:gap-x-6">
           <div class="flex items-center gap-x-4 lg:gap-x-6">
             <button type="button" class="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500">
               <span class="sr-only">View notifications</span>
@@ -158,7 +144,7 @@ const sidebarOpen = ref(false)
               <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
                 <MenuItems class="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
                   <MenuItem v-for="item in userNavigation" :key="item.name" v-slot="{ active }">
-                    <router-link :to="`${item.href}`" :class="[active ? 'bg-gray-50' : '', 'block px-3 py-1 text-sm leading-6 text-gray-900']">{{ item.name }}</router-link>
+                    <router-link :to="`${item.href}`" :class="[active ? 'bg-gray-400' : '', 'block px-3 py-1 text-sm leading-6 text-gray-900']">{{ item.name }}</router-link>
                   </MenuItem>
                 </MenuItems>
               </transition>
@@ -181,4 +167,15 @@ const sidebarOpen = ref(false)
   </div>
 </template>
 <style>
+.link{
+  color:white
+}
+.link:hover{
+  background-color: #fff;
+  @apply text-primary transition-all duration-300
+}
+.router-link-active,.router-link-exact-active{
+  background-color: #fff;
+  @apply text-primary
+}
 </style>
