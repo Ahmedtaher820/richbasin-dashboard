@@ -12,7 +12,6 @@ declare module '@vue/runtime-core' {
     BaseButton: typeof import('./components/Form/BaseButton.vue')['default']
     BaseInput: typeof import('./components/Form/BaseInput.vue')['default']
     BasicGrid: typeof import('./components/Grid/basicGrid.vue')['default']
-    BasinGrid: typeof import('./components/Grid/basinGrid.vue')['default']
     CSRModal: typeof import('./components/Modals/CSRModal.vue')['default']
     Grid: typeof import('./components/Grid/Grid.vue')['default']
     GridTd: typeof import('./components/Grid/GridTd.vue')['default']

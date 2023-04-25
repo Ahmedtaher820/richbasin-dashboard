@@ -10,7 +10,7 @@ const props = defineProps({
     },
     newsInfo:{
         type:Object as PropType<PublicFormData>,
-            default:null
+            default:{}
     }
 
     
@@ -21,7 +21,6 @@ watch( newsInfo , (val:PublicFormData)=>{
     console.log(val)
     formData.header = val.header || ''
     formData.content = val.content || ''
-    formData.img = val.img || null
     formData.date = val.date || ''
 })
 const closeModal = ()=>{
@@ -87,7 +86,7 @@ const submitData = ()=>{
                 </div>
             </div>
             <div>
-                <img-input v-model="formData.img" :link="null" />
+                <img-input v-model="formData.img" :link="''" />
                 <div class="input-errors" v-for="error of v$.img.$errors" :key="error.$uid">
                         <div class="error-msg">{{ error.$message }}</div>
                 </div>

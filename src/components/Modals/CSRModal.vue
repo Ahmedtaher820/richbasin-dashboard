@@ -16,9 +16,8 @@ const props = defineProps({
 const emit = defineEmits(['submitInfo','closeModal'])
 const {csrInfo} = toRefs(props)
 watch( csrInfo , (val:PublicFormData)=>{
-    formData.header = val.header || ''
-    formData.content = val.content || ''
-    formData.img = val.img
+    formData.header = val?.header || ''
+    formData.content = val?.content || ''
 })
 const closeModal = ()=>{
         v$.value.$reset()
@@ -69,7 +68,7 @@ const submitData = ()=>{
                 </div>
             </div>
             <div>
-                <img-input v-model="formData.img" :link="null" />
+                <img-input v-model="formData.img" :link="''" />
                 <div class="input-errors" v-for="error of v$.img.$errors" :key="error.$uid">
                     <div class="error-msg">{{ error.$message }}</div>
                 </div>

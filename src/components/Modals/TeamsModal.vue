@@ -23,7 +23,6 @@ watch( showTeams , (val:team)=>{
     console.log(val)
     formData.name = val.name
     formData.content = val.content
-    formData.img = val.img
 })
 const formData = reactive({
     name:'',
@@ -70,7 +69,7 @@ const submitData = ()=>{
                 </div>
             </div>
             <div>
-                <img-input v-model="formData.image" :link="null" />
+                <img-input v-model="formData.image" :link="''" />
                 <div class="input-errors" v-for="error of v$.image.$errors" :key="error.$uid">
                         <div class="error-msg">{{ error.$message }}</div>
                 </div>

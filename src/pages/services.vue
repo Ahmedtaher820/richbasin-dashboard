@@ -7,7 +7,7 @@ const closeModal = ()=>{
 const submitInfo = (formData:PublicFormData) =>{
   console.log(formData)
 }
-const updateData = ref({})
+const updateData = ref<PublicFormData>({header:'',content:'',img:null})
 const showInfo = (info: PublicFormData)=>{
   updateData.value = info
   showModal.value = true

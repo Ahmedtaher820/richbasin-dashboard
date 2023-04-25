@@ -23,7 +23,6 @@ const formData = ref({
 watch( servicesInfo , (val:PublicFormData)=>{
     formData.value.header = val?.header || ''
     formData.value.content = val?.content || ''
-    formData.value.img = val?.img || null
 })
 const closeModal = ()=>{
         v$.value.$reset()
@@ -69,7 +68,7 @@ const submitData = ()=>{
                 </div>
             </div>
             <div>
-                <img-input v-model="formData.img" :link="null" />
+                <img-input v-model="formData.img" :link="''" />
                 <div class="input-errors" v-for="error of v$.img.$errors" :key="error.$uid">
                     <div class="error-msg">{{ error.$message }}</div>
                 </div>

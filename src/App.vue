@@ -94,7 +94,7 @@ const sidebarOpen = ref(false)
       <!-- Sidebar component, swap this element with another sidebar if you like -->
       <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-primary px-6 pb-4">
         <div class="flex h-16 shrink-0 items-center">
-          <img class="mt-6 w-16 h-16 logo" src="logo.jfif" alt="Your Company" />
+          <img class="mt-6 w-16 h-16 logo" src="/logo.jfif" alt="Your Company" />
         </div>
         <nav class="flex flex-1 flex-col my-6">
           <ul role="list" class="flex flex-1 flex-col gap-y-7">

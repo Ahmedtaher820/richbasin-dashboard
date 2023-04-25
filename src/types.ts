@@ -5,8 +5,8 @@ export interface PublicFormData {
     number?:number | null
     date?:string | null
 }
-export interface    team{
+export interface team{
     content:string
     name:string
-    img: File | null
+    img: string
 }

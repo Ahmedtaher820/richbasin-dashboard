@@ -5,7 +5,7 @@ const showModal = ref(false)
 const closeModal = ()=>{
   showModal.value = false
 }
-const updateData = ref<team>({name:'',content:'',img:null})
+const updateData = ref<team>({name:'',content:'',img:''})
 const showInfo = (info: team)=>{
   updateData.value = info
   showModal.value = true
@@ -14,12 +14,12 @@ const teams = ref<team[]>([
   {
     name:'Khaled elgendy',
     content:'is petrol engineer and live in cairo khaled is CEO Founder of richbasin',
-    img:null
+    img:''
   },
   {
     name:'Moaz Ali',
     content:'is petrol engineer and live in cairo khaled is CEO Founder of richbasin',
-    img:null
+    img:''
   },
 ])
 </script>
@@ -28,7 +28,7 @@ const teams = ref<team[]>([
   <teams-modal :show="showModal" :showTeams="updateData" @closeModal="closeModal"></teams-modal>
     <div class="flex items-center justify-between">
       <h1 class="text-4xl text-primary">Teams</h1>
-      <base-button type="submit" customBg="bg-green-600" class="mt-4 text-center hover:bg-green-700 duration-300 transition-all" @click="showInfo({name:'',content:'',img:null})">Create</base-button>
+      <base-button type="submit" customBg="bg-green-600" class="mt-4 text-center hover:bg-green-700 duration-300 transition-all" @click="showInfo({name:'',content:'',img:''})">Create</base-button>
     </div>
     <div class="grid md:grid-cols-3 grid-cols-1 mt-8 gap-8 gap-y-10">
       <div class="col-span-1" v-for="team in teams" :key="team.name">

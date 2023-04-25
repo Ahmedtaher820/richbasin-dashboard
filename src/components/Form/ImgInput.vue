@@ -8,7 +8,7 @@ const prop = defineProps({
   },
 
   link: {
-    type: String as PropType<String | null>,
+    type: String as PropType<string>,
   },
 })
 
@@ -19,7 +19,7 @@ const triggerFile = () => {
   file.value.click()
 }
 
-const onInputChange = (event) => {
+const onInputChange = (event:any) => {
   emit('update:modelValue', event.target.files[0])
 }
 </script>

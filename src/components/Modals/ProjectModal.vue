@@ -9,7 +9,7 @@ const props = defineProps({
         default:false
     },
     projectsInfo:{
-        type:Object as PropType<PublicFormData | undefined>,
+        type:Object as PropType<PublicFormData>,
         default:{}
     }
 })
@@ -38,7 +38,6 @@ const {projectsInfo} = toRefs(props)
 watch( projectsInfo , (val:PublicFormData)=>{
     formData.header = val.header || ''
     formData.content = val.content || ''
-    formData.img = val.img 
 })
 const v$ = useVuelidate(rules , formData)
 const processing = ref(false)
@@ -69,7 +68,7 @@ const submitData = ()=>{
                 </div>
             </div>
             <div>
-                <img-input v-model="formData.img" :link="null" />
+                <img-input v-model="formData.img" :link="''" />
                 <div class="input-errors" v-for="error of v$.img.$errors" :key="error.$uid">
                         <div class="error-msg">{{ error.$message }}</div>
                 </div>

@@ -21,7 +21,7 @@ const showInfo = (item: PublicFormData)=>{
 }
 const route = useRoute()
 const getDate = computed(()=>{
-  return props.info[0]?.date?.length > 0 ? true : false
+  return props.info[0]?.date  ? true : false
 })
 </script>
 
@@ -50,7 +50,7 @@ const getDate = computed(()=>{
             </grid-th>
           </tr>
         </template>
-        <tr v-for="(item) in info" :key="item.header">
+        <tr v-for="(item,ind) in info" :key="ind">
           <grid-td>{{item.number}}</grid-td>
           <grid-td>{{item.content}}</grid-td>
           <grid-td>{{item.header}}</grid-td>
