@@ -9,7 +9,8 @@ const closeModal = () => {
 const formData = reactive({
   email: "",
   phoneNumber: "",
-  location: {
+  location:'',
+  map: {
     lat: 0,
     long: 0,
   },
@@ -21,7 +22,7 @@ const rules = {
   phoneNumber: {
     required,
   },
-  location: {
+  map: {
     lat: {
       required,
     },
@@ -29,6 +30,9 @@ const rules = {
       required,
     },
   },
+  location:{
+    required
+  }
 };
 const v$ = useVuelidate(rules, formData);
 const processing = ref(false);
@@ -79,7 +83,11 @@ const submitForm = () => {
 
         <div class="col-span-2">
           <h2 class="mt-6 mb-2 text-primary text-2xl">Location</h2>
-          <div class="grid md:grid-cols-2 grid-cols-1 gap-4 gap-y-6">
+          <div class="mt-4 mb-3">
+            <base-input v-model="formData.location" id="location" title="location" />
+
+          </div>
+          <div class="grid md:grid-cols-2 grid-cols-1 gap-4 ">
             <div>
               <base-input
                 v-model="formData.email"
@@ -89,7 +97,7 @@ const submitForm = () => {
               />
               <div
                 class="input-errors"
-                v-for="error of v$.location.lat.$errors"
+                v-for="error of v$.map.lat.$errors"
                 :key="error.$uid"
               >
                 <div class="error-msg">{{ error.$message }}</div>
@@ -104,7 +112,7 @@ const submitForm = () => {
               />
               <div
                 class="input-errors"
-                v-for="error of v$.location.long.$errors"
+                v-for="error of v$.map.long.$errors"
                 :key="error.$uid"
               >
                 <div class="error-msg">{{ error.$message }}</div>

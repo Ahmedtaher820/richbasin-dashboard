@@ -13,12 +13,12 @@ const showInfo = (info: team)=>{
 const teams = ref<team[]>([
   {
     name:'Khaled elgendy',
-    content:'is petrol engineer and live in cairo khaled is CEO Founder of richbasin',
+    content:'He is a petroleum engineer and live in cairo.Eng khaled is CEO Founder of richbasin',
     img:''
   },
   {
     name:'Moaz Ali',
-    content:'is petrol engineer and live in cairo khaled is CEO Founder of richbasin',
+    content:'He is a petroleum engineer and live in cairo.Eng khaled is CEO Founder of richbasin',
     img:''
   },
 ])
