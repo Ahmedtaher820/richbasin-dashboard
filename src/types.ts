@@ -1,9 +1,10 @@
 export interface PublicFormData {
     content: string | null
     header: string | null
-    img: File | null
+    image: File | null
     number?:number | null
-    date?:string | null
+    date?:string 
+    _id:string 
 }
 export interface team{
     content:string

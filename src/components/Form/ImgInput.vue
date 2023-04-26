@@ -8,7 +8,7 @@ const prop = defineProps({
   },
 
   link: {
-    type: String as PropType<string>,
+    type: String as PropType<string | null>,
   },
 })
 

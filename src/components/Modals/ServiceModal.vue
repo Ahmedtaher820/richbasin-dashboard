@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import useVuelidate from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
+import { PropType } from "vue";
 import type {PublicFormData} from "../../types"
 
 const props = defineProps({
@@ -11,18 +12,27 @@ const props = defineProps({
     servicesInfo:{
         type:Object as PropType<PublicFormData>,
         default:{}
-    }
+    },
+    imgLink:{
+        type:String as PropType<string | null>,
+        defualt:''
+    },
+    processing:{
+    type: Boolean,
+    default: false
+},
 })
-const emit = defineEmits(['submitInfo','closeModal'])
+const emit = defineEmits(['create','update','closeModal'])
 const {servicesInfo} = toRefs(props)
-const formData = ref({
+const formData = reactive({
     header:'',
     content:'',
-    img:null
+    image:null
 })
 watch( servicesInfo , (val:PublicFormData)=>{
-    formData.value.header = val?.header || ''
-    formData.value.content = val?.content || ''
+    formData.header = val?.header || ''
+    formData.content = val?.content || ''
+    formData.image = val?.image || ''
 })
 const closeModal = ()=>{
         v$.value.$reset()
@@ -35,7 +45,7 @@ const rules = {
     content:{
         required
     },
-    img :{
+    image :{
         required
     },
 }
@@ -47,12 +57,17 @@ const submitData = ()=>{
         return
     }
     processing.value = true
-    emit('submitInfo' , formData)
+    if(props.servicesInfo?.content){
+        emit('update' , formData)
+
+    }else{
+        emit('create' , formData )
+    }
 }
 </script>
 
 <template>
-    <modal :open="show" title="Create Service" @close="closeModal">
+    <modal :open="show" :title="servicesInfo.content?.length === 0 ? 'Create Services' : 'Update Services'" @close="closeModal">
       <form @submit.prevent="submitData" class="px-4 edit-form">
         <div class="flex flex-col gap-3">
             <div>
@@ -68,13 +83,13 @@ const submitData = ()=>{
                 </div>
             </div>
             <div>
-                <img-input v-model="formData.img" :link="''" />
-                <div class="input-errors" v-for="error of v$.img.$errors" :key="error.$uid">
+                <img-input v-model="formData.image" :link="imgLink" />
+                <div class="input-errors" v-for="error of v$.image.$errors" :key="error.$uid">
                     <div class="error-msg">{{ error.$message }}</div>
                 </div>
             </div>
             
-            <base-button type="submit" class="mt-4 text-center hover:bg-primary-600 duration-300 transition-all" >Create</base-button>
+            <base-button type="submit" class="mt-4 text-center hover:bg-primary-600 duration-300 transition-all" >{{servicesInfo.content?.length === 0 ? 'Create' : 'Update'}}</base-button>
         </div>
     </form>
     </modal>

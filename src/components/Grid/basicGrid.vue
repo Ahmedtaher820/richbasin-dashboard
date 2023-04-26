@@ -6,18 +6,20 @@ const props = defineProps({
         type:Array as PropType<PublicFormData[]>,
         default :()=>([
           {
-            number:1,
-            content:'welcome',
-            header:'header project',
+            content:'',
+            header:'',
             img: null,
-            date:'2023-04-21'
+            date:''
           }
         ])
     }
 })
-const emit = defineEmits(['showInfo'])
+const emit = defineEmits(['showInfo','deleteInfo'])
 const showInfo = (item: PublicFormData)=>{
   emit('showInfo' , item)
+}
+const deleteInfo = (item: PublicFormData)=>{
+  emit('deleteInfo' , item)
 }
 const route = useRoute()
 const getDate = computed(()=>{
@@ -26,13 +28,10 @@ const getDate = computed(()=>{
 </script>
 
 <template>
-  <div>
+  <div class="md:overflow-x-hidden overflow-x-scroll">
     <grid class="mt-8">
         <template #grid-header>
           <tr class="">
-            <grid-th>
-              <grid-td>Number</grid-td>
-            </grid-th>
             <grid-th>
               <grid-td>Header</grid-td>
             </grid-th>
@@ -50,15 +49,22 @@ const getDate = computed(()=>{
             </grid-th>
           </tr>
         </template>
-        <tr v-for="(item,ind) in info" :key="ind">
-          <grid-td>{{item.number}}</grid-td>
+        <tr v-for="(item,ind) in info" :key="ind" class="overflow-x-scroll">
           <grid-td>{{item.content}}</grid-td>
           <grid-td>{{item.header}}</grid-td>
-          <grid-td v-if="getDate">{{item.date}}</grid-td>
-          <grid-td>
+          <grid-td v-if="getDate">{{new Date(item?.date).toDateString()}}</grid-td>
+          <grid-td class="flex gap-2">
             <base-button type="button" class="mt-4 text-center hover:bg-primary-600 duration-300 transition-all capitalize" @click="showInfo(item)">Show {{$route.name}}</base-button>
+            <base-button type="button" customBg="bg-red-600" class="mt-4 text-center hover:bg-red-500 duration-300 transition-all capitalize" @click="deleteInfo(item)">Delete {{$route.name}}</base-button>
           </grid-td>
 
+        </tr>
+        <tr v-if="info.length === 0">
+          <grid-td colspan="6">
+            <div class="text-gray-900 text-xl">
+              No data found
+            </div>
+          </grid-td>
         </tr>
       </grid>
   </div>
@@ -66,5 +72,7 @@ const getDate = computed(()=>{
 
 
 <style>
-
+.table{
+  overflow-x: scroll;
+}
 </style>

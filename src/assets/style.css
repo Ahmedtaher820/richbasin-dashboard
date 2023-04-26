@@ -5,3 +5,9 @@
 .input-errors{
     @apply text-red-600 text-sm
 }
+.center-items{
+    @apply flex justify-center items-center
+}
+#app{
+    @apply overflow-x-hidden
+}

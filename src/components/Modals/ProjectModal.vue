@@ -11,9 +11,13 @@ const props = defineProps({
     projectsInfo:{
         type:Object as PropType<PublicFormData>,
         default:{}
+    },
+    imgLink:{
+        type:String as PropType<string | null>,
+        defualt:''
     }
 })
-const emit = defineEmits(['submitInfo','closeModal'])
+const emit = defineEmits(['submitInfo','closeModal','update','create'])
 const closeModal = ()=>{
         v$.value.$reset()
         emit('closeModal')
@@ -42,17 +46,23 @@ watch( projectsInfo , (val:PublicFormData)=>{
 const v$ = useVuelidate(rules , formData)
 const processing = ref(false)
 const submitData = ()=>{
+    processing.value = true
     v$.value.$touch()
     if(v$.value.$invalid){
         return
     }
-    processing.value = true
-    emit('submitInfo' , formData)
+    if(props.projectsInfo?.content){
+        emit('update' , formData)
+    }else{
+        emit('create' , formData )
+    }
+    processing.value = false
+
 }
 </script>
 
 <template>
-    <modal :open="show" title="Create Project" @close="closeModal">
+    <modal :open="show" :title="projectsInfo.content?.length === 0 ? 'Create Projects' : 'Update Projects'"  @close="closeModal">
       <form @submit.prevent="submitData" class="px-4 edit-form">
         <div class="flex flex-col gap-3">
             <div>
@@ -68,13 +78,13 @@ const submitData = ()=>{
                 </div>
             </div>
             <div>
-                <img-input v-model="formData.img" :link="''" />
+                <img-input v-model="formData.img" :link="imgLink" />
                 <div class="input-errors" v-for="error of v$.img.$errors" :key="error.$uid">
                         <div class="error-msg">{{ error.$message }}</div>
                 </div>
             </div>
             
-            <base-button type="submit" class="mt-4 text-center hover:bg-primary-600 duration-300 transition-all" >Create</base-button>
+            <base-button type="submit" class="mt-4 text-center hover:bg-primary-600 duration-300 transition-all" :show-icon="processing">{{projectsInfo.content?.length === 0 ? 'Create' : 'Update'}}</base-button>
         </div>
     </form>
     </modal>

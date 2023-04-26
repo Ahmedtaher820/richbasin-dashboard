@@ -12,16 +12,21 @@ const props = defineProps({
         type:Object as PropType<PublicFormData>,
             default:{}
     }
-
-    
 })
-const emit = defineEmits(['submitInfo','closeModal'])
+const emit = defineEmits(['submitInfo','closeModal','create','update'])
 const {newsInfo} = toRefs(props)
 watch( newsInfo , (val:PublicFormData)=>{
-    console.log(val)
     formData.header = val.header || ''
     formData.content = val.content || ''
-    formData.date = val.date || ''
+    if(val.date?.length > 0){
+        formData.date = new Date(val.date).toISOString()
+          .slice(0, 10)
+          .split('/')
+          .join('-') || ''
+    }else{
+    formData.date = ''
+
+    }
 })
 const closeModal = ()=>{
         v$.value.$reset()
@@ -55,7 +60,12 @@ const submitData = ()=>{
         return
     }
     processing.value = true
-    emit('submitInfo' , formData)
+    if(props.newsInfo?._id){
+        emit('update' , formData)
+
+    }else{
+        emit('create' , formData )
+    }
 }
 </script>
 
@@ -77,7 +87,6 @@ const submitData = ()=>{
             </div>
             <div>
                 <div class="flex flex-col">
-                    {{ formData.date }}
                     <label class="text-base mb-1" for="date"></label>
                     <input type="date" class="border ps-2 py-2 rounded-md" name="date" id="date" v-model="formData.date">
                 </div> 
