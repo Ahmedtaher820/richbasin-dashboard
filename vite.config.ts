@@ -27,7 +27,7 @@ export default defineConfig({
         'src/composables',
       ],
       vueTemplate: true,
-    })
+    }),
   ],
   resolve: {
     alias: {

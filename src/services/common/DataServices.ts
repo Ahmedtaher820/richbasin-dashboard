@@ -10,9 +10,13 @@ import {
   PAGE_EXPIRED
 } from "../../constants"
 const instance = axios.create({
-    baseURL:'https://teal-cloudy-trout.cyclic.app/api'
+    baseURL:'https://teal-cloudy-trout.cyclic.app/api',
+    headers: {
+      "Content-type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
 })
-instance.interceptors.response.use((response)=>{
+instance.interceptors.response.use((response:any)=>{
     if (response.status === UNAUTHORIZED_CODE) {
         router.push({path:'/login'})
         return
