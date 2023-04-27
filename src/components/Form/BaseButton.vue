@@ -22,7 +22,7 @@ const click = ()=>{
 </script>
 
 <template>
-  <button class=" text-white md:px-4 md:py-2 px-3 py-1 md:text-base text-sm rounded-full border  hover:border-primary-200 duration-300 transition-all   flex gap-2 items-center justify-center" @click="click()" :class="[customBg ? `${customBg} border-${customBg}` : 'bg-primary border-primary hover:bg-primary-600' ]" :disabled="processing">
+  <button class=" text-white md:px-4 py-2 px-3 md:text-base text-sm rounded-full border  hover:border-primary-200 duration-300 transition-all   flex gap-2 items-center justify-center" @click="click()" :class="[customBg ? `${customBg} border-${customBg}` : 'bg-primary border-primary hover:bg-primary-600' ]" :disabled="processing">
     <slot />
     <loader v-if="processing" />
     <svg

@@ -43,6 +43,8 @@ const deleteInfo = (itemsData: PublicFormData)=>{
   })
 }
 const updateInfo = (itemsData: PublicFormData)=>{
+  processing.value = true
+
   projects().updateProjects(itemsData,updateData.value._id).then(()=>{
     getAllProjects()
     showModal.value = false

@@ -25,7 +25,7 @@ const closeModal = ()=>{
 const formData = reactive({
     header:'',
     content:'',
-    img:null
+    image:null
 })
 const rules = {
     header:{
@@ -34,7 +34,7 @@ const rules = {
     content:{
         required
     },
-    img :{
+    image :{
         required
     },
 }
@@ -42,6 +42,8 @@ const {projectsInfo} = toRefs(props)
 watch( projectsInfo , (val:PublicFormData)=>{
     formData.header = val.header || ''
     formData.content = val.content || ''
+    //@ts-ignore
+    formData.image = val.image || ''
 })
 const v$ = useVuelidate(rules , formData)
 const processing = ref(false)
@@ -78,8 +80,8 @@ const submitData = ()=>{
                 </div>
             </div>
             <div>
-                <img-input v-model="formData.img" :link="imgLink" />
-                <div class="input-errors" v-for="error of v$.img.$errors" :key="error.$uid">
+                <img-input v-model="formData.image" :link="imgLink" />
+                <div class="input-errors" v-for="error of v$.image.$errors" :key="error.$uid">
                         <div class="error-msg">{{ error.$message }}</div>
                 </div>
             </div>
