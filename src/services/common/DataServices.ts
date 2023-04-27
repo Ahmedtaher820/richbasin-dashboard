@@ -10,11 +10,7 @@ import {
   PAGE_EXPIRED
 } from "../../constants"
 const instance = axios.create({
-    baseURL:'https://teal-cloudy-trout.cyclic.app/api',
-    headers: {
-      "Content-type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-    },
+    baseURL:'https://teal-cloudy-trout.cyclic.app/api'
 })
 instance.interceptors.response.use((response:any)=>{
     if (response.status === UNAUTHORIZED_CODE) {

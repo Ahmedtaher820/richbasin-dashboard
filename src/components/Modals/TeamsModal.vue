@@ -75,7 +75,10 @@ const submitData = ()=>{
                 </div>
             </div>
             <div>
-                <base-input v-model="formData.content" id="Content" title="Content" />
+                <div class="flex flex-col">
+                    <label for="content" class="text-base mb-1">Content</label>
+                    <textarea id="content" class="border p-2 focus:outline-none"  rows="4" v-model="formData.content"></textarea>
+                </div> 
                 <div class="input-errors" v-for="error of v$.content.$errors" :key="error.$uid">
                     <div class="error-msg">{{ error.$message }}</div>
                 </div>
