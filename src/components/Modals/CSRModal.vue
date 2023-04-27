@@ -22,6 +22,8 @@ const {csrInfo} = toRefs(props)
 watch( csrInfo , (val:PublicFormData)=>{
     formData.header = val?.header || ''
     formData.content = val?.content || ''
+    // @ts-ignore
+    formData.image = val?.content || ''
 })
 const closeModal = ()=>{
         v$.value.$reset()
@@ -30,7 +32,7 @@ const closeModal = ()=>{
 const formData = reactive({
     header:'',
     content:'',
-    img:null
+    image:null
 })
 const rules = {
     header:{
@@ -39,7 +41,7 @@ const rules = {
     content:{
         required
     },
-    img :{
+    image :{
         required
     },
 }
@@ -77,8 +79,8 @@ const submitData = ()=>{
                 </div>
             </div>
             <div>
-                <img-input v-model="formData.img" :link="imgLink" />
-                <div class="input-errors" v-for="error of v$.img.$errors" :key="error.$uid">
+                <img-input v-model="formData.image" :link="imgLink" />
+                <div class="input-errors" v-for="error of v$.image.$errors" :key="error.$uid">
                     <div class="error-msg">{{ error.$message }}</div>
                 </div>
             </div>

@@ -101,7 +101,7 @@ const submitData = ()=>{
             </div>
             <div>
                 <img-input v-model="formData.image" :link="''" />
-                <div class="input-errors" v-for="error of v$.img.$errors" :key="error.$uid">
+                <div class="input-errors" v-for="error of v$.image.$errors" :key="error.$uid">
                         <div class="error-msg">{{ error.$message }}</div>
                 </div>
             </div>
