@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import useVuelidate from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
-import type {team} from "../../types"
+import type {TeamsType} from "../../types"
 
 const props = defineProps({
     show:{
@@ -9,20 +9,27 @@ const props = defineProps({
         default:false
     },
     showTeams:{
-        type:Object as PropType<team>,
+        type:Object as PropType<TeamsType>,
         default:{}
-    }
+    },
+    imgLink:{
+        type:String as PropType<string | null>,
+        defualt:''
+    },
 })
-const emit = defineEmits(['submitInfo','closeModal'])
+const emit = defineEmits(['submitInfo','closeModal','create','update'])
 const {showTeams} = toRefs(props)
 const closeModal = ()=>{
         v$.value.$reset()
         emit('closeModal')
 }
-watch( showTeams , (val:team)=>{
-    console.log(val)
+watch( showTeams , (val:TeamsType)=>{
     formData.name = val.name
     formData.content = val.content
+    // @ts-ignore
+
+    formData.image = val?.image || File
+
 })
 const formData = reactive({
     name:'',
@@ -48,12 +55,17 @@ const submitData = ()=>{
         return
     }
     processing.value = true
-    emit('submitInfo' , formData)
+    if(props.showTeams?._id){
+        emit('update' , formData)
+
+    }else{
+        emit('create' , formData )
+    }
 }
 </script>
 
 <template>
-    <modal :open="show" title="Create Project" @close="closeModal">
+    <modal :open="show" :title="showTeams.content?.length === 0 ? 'Create Teams' : 'Update Teams'" @close="closeModal">
       <form @submit.prevent="submitData" class="px-4 edit-form">
         <div class="flex flex-col gap-3">
             <div>
@@ -69,13 +81,13 @@ const submitData = ()=>{
                 </div>
             </div>
             <div>
-                <img-input v-model="formData.image" :link="''" />
+                <img-input v-model="formData.image" :link="imgLink" />
                 <div class="input-errors" v-for="error of v$.image.$errors" :key="error.$uid">
                         <div class="error-msg">{{ error.$message }}</div>
                 </div>
             </div>
             
-            <base-button type="submit" class="mt-4 text-center hover:bg-primary-600 duration-300 transition-all" >Create</base-button>
+            <base-button type="submit" class="mt-4 text-center hover:bg-primary-600 duration-300 transition-all" >{{showTeams.content?.length === 0 ? 'Create' : 'Update'}}</base-button>
         </div>
     </form>
     </modal>

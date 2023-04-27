@@ -18,7 +18,12 @@ const {newsInfo} = toRefs(props)
 watch( newsInfo , (val:PublicFormData)=>{
     formData.header = val.header || ''
     formData.content = val.content || ''
+    // @ts-ignore
+    formData.image = val.image || null
+    // @ts-ignore
     if(val.date?.length > 0){
+    // @ts-ignore
+
         formData.date = new Date(val.date).toISOString()
           .slice(0, 10)
           .split('/')
@@ -35,7 +40,7 @@ const closeModal = ()=>{
 const formData = reactive({
     header:'',
     content:'',
-    img:null,
+    image:null,
     date:''
 })
 const rules = {
@@ -45,7 +50,7 @@ const rules = {
     content:{
         required
     },
-    img :{
+    image :{
         required
     },
     date :{
@@ -70,7 +75,7 @@ const submitData = ()=>{
 </script>
 
 <template>
-    <modal :open="show" title="Create News" @close="closeModal">
+    <modal :open="show" :title="newsInfo.content?.length === 0 ? 'Create News' : 'Update News'" @close="closeModal">
       <form @submit.prevent="submitData" class="px-4 edit-form">
         <div class="flex flex-col gap-3">
             <div>
@@ -95,13 +100,13 @@ const submitData = ()=>{
                 </div>
             </div>
             <div>
-                <img-input v-model="formData.img" :link="''" />
+                <img-input v-model="formData.image" :link="''" />
                 <div class="input-errors" v-for="error of v$.img.$errors" :key="error.$uid">
                         <div class="error-msg">{{ error.$message }}</div>
                 </div>
             </div>
             
-            <base-button type="submit" class="mt-4 text-center hover:bg-primary-600 duration-300 transition-all" >Create</base-button>
+            <base-button type="submit" class="mt-4 text-center hover:bg-primary-600 duration-300 transition-all" >{{newsInfo.content?.length === 0 ? 'Create' : 'Update'}}</base-button>
         </div>
     </form>
     </modal>

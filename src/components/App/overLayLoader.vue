@@ -1,5 +1,5 @@
 <template>
-    <div class="loader-page fixed left-0 center-items top-0 w-full h-full">
+    <div class="loader-page fixed left-0 lg:ps-72  center-items top-0 w-full h-full">
         <div class="spinner relative"></div>
     </div>
 

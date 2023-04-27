@@ -32,6 +32,7 @@ const formData = reactive({
 watch( servicesInfo , (val:PublicFormData)=>{
     formData.header = val?.header || ''
     formData.content = val?.content || ''
+    // @ts-ignore
     formData.image = val?.image || ''
 })
 const closeModal = ()=>{

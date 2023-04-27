@@ -17,13 +17,11 @@ const getAllScr = ()=>{
     processing.value = false
   })
 }
-const updateData = ref<PublicFormData>({header:'',content:'',image:null,_id:''})
+const updateData = ref<PublicFormData>({header:'',content:'', image:'',_id:''})
 const showInfo = (info: PublicFormData)=>{
   updateData.value = info
   showModal.value = true
 }
-
-
 const deleteInfo = (itemsData: PublicFormData)=>{
   processing.value = true
   csr().deleteCsr(itemsData._id).then(()=>{
@@ -56,9 +54,10 @@ onMounted(()=>{
 </script>
 
 <template>
+  <over-lay-loader v-if="processing" />
     <div class="flex items-center justify-between">
       <h1 class="text-4xl text-primary">CSR</h1>
-      <base-button type="submit" customBg="bg-green-600" class="mt-4 text-center hover:bg-green-700 duration-300 transition-all" @click="showInfo({header:'',content:'',image:null,_id:''})">Create</base-button>
+      <base-button type="submit" customBg="bg-green-600" class="mt-4 text-center hover:bg-green-700 duration-300 transition-all" @click="showInfo({header:'',content:'',image:'',_id:''})">Create</base-button>
     </div>
     <basic-grid @showInfo="showInfo" @deleteInfo="deleteInfo" :info="info" />
     <CSR-modal :show="showModal" @closeModal="closeModal" @update="updateInfo" @create="create" :csrInfo="updateData" :imgLink="updateData.image"></CSR-modal>

@@ -15,7 +15,7 @@ const create = (formData:PublicFormData) =>{
     showModal.value = false
   })
 }
-const updateData = ref<PublicFormData>({header:'',content:'',image:null,_id:''})
+const updateData = ref<PublicFormData>({header:'',content:'',image:'',_id:''})
 const showInfo = (info: PublicFormData)=>{
   updateData.value = info
   showModal.value = true
@@ -58,7 +58,7 @@ const updateInfo = (itemsData: PublicFormData)=>{
   <service-modal :show="showModal"  @create="create" @closeModal="closeModal" :servicesInfo="updateData" @update="updateInfo" :imgLink="updateData.image" :processing="processing"></service-modal>
     <div class="flex items-center justify-between">
       <h1 class="text-4xl text-primary">Service</h1>
-      <base-button type="submit" customBg="bg-green-600" class="mt-4 text-center hover:bg-green-700 duration-300 transition-all" @click="showInfo({header:'',content:'',image:null,_id:''})">Create</base-button>
+      <base-button type="submit" customBg="bg-green-600" class="mt-4 text-center hover:bg-green-700 duration-300 transition-all" @click="showInfo({header:'',content:'',image:'',_id:''})">Create</base-button>
     </div>
     <basic-grid @showInfo="showInfo"  @deleteInfo="deleteInfo" :info="info" />
   </template>

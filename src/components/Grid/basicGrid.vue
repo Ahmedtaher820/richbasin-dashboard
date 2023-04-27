@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { set } from "@vueuse/core";
 import { PropType } from "vue";
 import type {PublicFormData} from "../../types"
 const props = defineProps({
@@ -25,6 +26,10 @@ const route = useRoute()
 const getDate = computed(()=>{
   return props.info[0]?.date  ? true : false
 })
+const dateComp = (val:PublicFormData)=>{
+    // @ts-ignore
+    return new Date(val.date).toDateString()
+}
 </script>
 
 <template>
@@ -52,7 +57,7 @@ const getDate = computed(()=>{
         <tr v-for="(item,ind) in info" :key="ind" class="overflow-x-scroll">
           <grid-td>{{item.content}}</grid-td>
           <grid-td>{{item.header}}</grid-td>
-          <grid-td v-if="getDate">{{new Date(item?.date).toDateString()}}</grid-td>
+          <grid-td v-if="getDate">{{dateComp(item)}}</grid-td>
           <grid-td class="flex gap-2">
             <base-button type="button" class="mt-4 text-center hover:bg-primary-600 duration-300 transition-all capitalize" @click="showInfo(item)">Show {{$route.name}}</base-button>
             <base-button type="button" customBg="bg-red-600" class="mt-4 text-center hover:bg-red-500 duration-300 transition-all capitalize" @click="deleteInfo(item)">Delete {{$route.name}}</base-button>
