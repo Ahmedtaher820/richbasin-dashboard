@@ -1,5 +1,5 @@
 export interface PublicFormData {
-    content: string | null
+    content: string 
     header: string | null
     image: string
     number?:number | null
@@ -18,4 +18,22 @@ export interface TeamsType{
     name:string
     image: string
     _id:string 
+    job:string
+}
+export interface location{
+    coordinates:string[]
+    address:string
+}
+export interface Contact{
+    email:string
+    phoneNumber1: string
+    phoneNumber2: string
+    location: location
+    _id?:string | null
+}
+export interface PartnerShip{
+    image:string
+    text: string
+    _id:string 
+
 }

@@ -13,21 +13,16 @@ import {
 } from '@headlessui/vue'
 import {
   Bars3Icon,
-  BellIcon,
   CalendarIcon,
-  ChartPieIcon,
-  Cog6ToothIcon,
-  DocumentDuplicateIcon,
   FolderIcon,
   HomeIcon,
   UsersIcon,
   XMarkIcon,
   PhoneIcon,
   ArrowTrendingDownIcon,
-  GlobeAltIcon
+  GlobeAltIcon,
+  UserGroupIcon
 } from '@heroicons/vue/24/outline'
-import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
-import {services} from "./stores/services"
 const navigation = [
   { name: 'Dashboard', href: '/', icon: HomeIcon, current: true },
   { name: 'Services', href: '/services', icon: ArrowTrendingDownIcon, current: false },
@@ -36,6 +31,7 @@ const navigation = [
   { name: 'Teams', href: '/teams', icon: UsersIcon, current: false },
   { name: 'CSR', href: '/csr', icon: GlobeAltIcon, current: false },
   { name: 'Contact', href: '/contact', icon: PhoneIcon, current: false },
+  { name: 'PartnersShip', href: '/partnerships', icon: UserGroupIcon, current: false },
 ]
 const userNavigation = [
   { name: 'Sign out' },

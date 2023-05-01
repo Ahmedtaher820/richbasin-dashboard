@@ -15,10 +15,11 @@ export default{
         return DatasServices.delete(`/projects/${projectId}`)
     },
     updateProjects(payload:PublicFormData ,projectId:string){
+        console.log(payload)
         return DatasServices.put(`/projects/${projectId}`,payload,{
             headers: {
                 'Content-Type': 'multipart/form-data',
-              },
+            },
         })
     },
 }

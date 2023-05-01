@@ -55,8 +55,17 @@ const dateComp = (val:PublicFormData)=>{
           </tr>
         </template>
         <tr v-for="(item,ind) in info" :key="ind" class="overflow-x-scroll">
-          <grid-td>{{item.content}}</grid-td>
           <grid-td>{{item.header}}</grid-td>
+          <grid-td>
+            <ul class="list-disc" v-if="Array.isArray(item.content)">
+              <li v-for="list in item.content" :key="list">
+                {{ list.length > 50 ? list.slice(0,50) +'...' : list }}
+              </li>
+            </ul>
+            <span v-else>
+              {{ item.content?.length > 50 ? item.content?.slice(0,50) +'...' : item.content }}
+            </span>
+          </grid-td>
           <grid-td v-if="getDate">{{dateComp(item)}}</grid-td>
           <grid-td class="flex gap-2">
             <base-button type="button" class="mt-4 text-center hover:bg-primary-600 duration-300 transition-all capitalize" @click="showInfo(item)">Show {{$route.name}}</base-button>

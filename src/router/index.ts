@@ -43,6 +43,11 @@ const router = createRouter({
             path: '/login',
             component: () => import('../pages/login.vue')
         },
+        {
+            name: 'partnerShips',
+            path: '/partnerships',
+            component: () => import('../pages/partnership.vue')
+        },
 
     ]
 

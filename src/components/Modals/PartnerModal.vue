@@ -1,17 +1,15 @@
 <script lang="ts" setup>
 import useVuelidate from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
-import type { PublicFormData } from "../../types";
-import { projects } from "../../stores/projects";
-import { storeToRefs } from "pinia";
-import { CheckCircleIcon } from "@heroicons/vue/24/outline";
+import type { PartnerShip } from "../../types";
+import { partners } from "../../stores/partners";
 const props = defineProps({
   show: {
     type: Boolean,
     default: false,
   },
-  projectsInfo: {
-    type: Object as PropType<PublicFormData>,
+  partnerInfo: {
+    type: Object as PropType<PartnerShip>,
     default: {},
   },
   imgLink: {
@@ -19,51 +17,44 @@ const props = defineProps({
     defualt: "",
   },
 });
-const emit = defineEmits(["submitInfo", "submit", "closeModal"]);
+const emit = defineEmits(["submitInfo", "closeModal", "submit"]);
+const { partnerInfo } = toRefs(props);
 const closeModal = () => {
   v$.value.$reset();
   emit("closeModal");
   err.value = "";
 };
+watch(partnerInfo, (val: PartnerShip) => {
+  // @ts-ignore
+  formData.image = val?.image || File;
+  formData.text = val?.text || "";
+});
 const formData = reactive({
-  header: "",
-  content: "",
+  text: "",
   image: null,
 });
 const rules = {
-  header: {
-    required,
-  },
-  content: {
+  text: {
     required,
   },
   image: {
     required,
   },
 };
-const { projectsInfo } = toRefs(props);
-watch(projectsInfo, (val: PublicFormData) => {
-  formData.header = val.header || "";
-  formData.content = val.content || "";
-  //@ts-ignore
-  formData.image = val.image || "";
-});
 const v$ = useVuelidate(rules, formData);
 const processing = ref(false);
 const err = ref("");
 const submitData = () => {
-  err.value = "";
   v$.value.$touch();
   if (v$.value.$invalid) {
     return;
   }
-  if (props.projectsInfo?.content) {
+  processing.value = true;
+  if (props.partnerInfo?._id) {
     processing.value = true;
-
-    projects()
-      //@ts-ignore
-
-      .updateProjects(formData, projectsInfo.value._id)
+    partners()
+    // @ts-ignore
+      .updatepartnerShips(formData, partnerInfo.value._id)
       .then(() => {
         closeModal();
         emit("submit");
@@ -76,10 +67,9 @@ const submitData = () => {
       });
   } else {
     processing.value = true;
-    projects()
-      //@ts-ignore
-
-      .createProjects(formData)
+    partners()
+    // @ts-ignore
+      .createpartnerShips(formData)
       .then(() => {
         closeModal();
         emit("submit");
@@ -96,44 +86,26 @@ const submitData = () => {
 
 <template>
   <over-lay-loader v-if="processing" />
+
   <modal
     :open="show"
     :title="
-      projectsInfo._id?.length === 0 ? 'Create Projects' : 'Update Projects'
+      partnerInfo._id?.length === 0
+        ? 'Create PartnerShip'
+        : 'Update PartnerShip'
     "
     @close="closeModal"
   >
     <form @submit.prevent="submitData" class="px-4 edit-form">
       <div class="flex flex-col gap-3">
         <div>
-          <base-input v-model="formData.header" id="Header" title="Header" />
+          <base-input v-model="formData.text" id="Link" title="Link" />
           <div
             class="input-errors"
-            v-for="error of v$.header.$errors"
+            v-for="error of v$.text.$errors"
             :key="error.$uid"
           >
             <div class="error-msg">{{ error.$message }}</div>
-          </div>
-        </div>
-        <div>
-          <div class="flex flex-col">
-            <div class="relative flex flex-col">
-              <label for="Content" class="text-base mb-1">Content</label>
-              <input
-                id="Content"
-                v-model="formData.content"
-                type="text"
-                class="border ps-2 py-2 rounded-md"
-                placeholder="Enter Content"
-              />
-            </div>
-            <div
-              class="input-errors"
-              v-for="error of v$.content.$errors"
-              :key="error.$uid"
-            >
-              <div class="error-msg">{{ error.$message }}</div>
-            </div>
           </div>
         </div>
         <div>
@@ -147,13 +119,11 @@ const submitData = () => {
           </div>
         </div>
         <div class="input-errors">{{ err }}</div>
-
         <base-button
           type="submit"
           class="mt-4 text-center hover:bg-primary-600 duration-300 transition-all"
-          :show-icon="processing"
           >{{
-            projectsInfo.content?.length === 0 ? "Create" : "Update"
+            partnerInfo._id?.length === 0 ? "Create" : "Update"
           }}</base-button
         >
       </div>

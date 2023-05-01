@@ -4,11 +4,13 @@ import teamsServices from "../services/teamsServices"
 
 export const teams = defineStore('teams',{
     state: ()=>({
+        newsData: [] as TeamsType[]
 
     }),
     actions:{
         async getAllTeams(){
             return teamsServices.getAllTeams().then((res)=>{
+                this.newsData = res.data.documents
                 return res
             })
         },

@@ -21,6 +21,7 @@ declare module '@vue/runtime-core' {
     Modal: typeof import('./components/App/Modal.vue')['default']
     NewsModal: typeof import('./components/Modals/NewsModal.vue')['default']
     OverLayLoader: typeof import('./components/App/overLayLoader.vue')['default']
+    PartnerModal: typeof import('./components/Modals/PartnerModal.vue')['default']
     ProjectModal: typeof import('./components/Modals/ProjectModal.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
