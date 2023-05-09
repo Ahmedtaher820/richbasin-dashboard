@@ -73,6 +73,7 @@ declare global {
   const onStartTyping: typeof import('@vueuse/core')['onStartTyping']
   const onUnmounted: typeof import('vue')['onUnmounted']
   const onUpdated: typeof import('vue')['onUpdated']
+  const partners: typeof import('./stores/partners')['partners']
   const pausableWatch: typeof import('@vueuse/core')['pausableWatch']
   const projects: typeof import('./stores/projects')['projects']
   const provide: typeof import('vue')['provide']
@@ -370,6 +371,7 @@ declare module 'vue' {
     readonly onStartTyping: UnwrapRef<typeof import('@vueuse/core')['onStartTyping']>
     readonly onUnmounted: UnwrapRef<typeof import('vue')['onUnmounted']>
     readonly onUpdated: UnwrapRef<typeof import('vue')['onUpdated']>
+    readonly partners: UnwrapRef<typeof import('./stores/partners')['partners']>
     readonly pausableWatch: UnwrapRef<typeof import('@vueuse/core')['pausableWatch']>
     readonly projects: UnwrapRef<typeof import('./stores/projects')['projects']>
     readonly provide: UnwrapRef<typeof import('vue')['provide']>

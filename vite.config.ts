@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import AutoImport from 'unplugin-auto-import/vite'
+import { VitePWA } from 'vite-plugin-pwa'
 
 import Components from 'unplugin-vue-components/vite'
 import { fileURLToPath, URL } from "node:url";
@@ -9,6 +10,7 @@ import { fileURLToPath, URL } from "node:url";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue(),
+    VitePWA({ registerType: 'autoUpdate' }),
     Components({
       extensions: ['vue'],
       include: [/\.vue$/, /\.vue\?vue/],
